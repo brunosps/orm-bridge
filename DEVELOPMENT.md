@@ -1,11 +1,11 @@
-# Development Guide
+# Development Guide - ORM Bridge
 
 ## Project Structure
 
 ```
 basesql-sequelize/
 ├── packages/
-│   ├── core/               # @basesql/core
+│   ├── core/               # @orm-bridge/core
 │   │   ├── src/
 │   │   │   ├── types.ts
 │   │   │   ├── base-sql.ts
@@ -17,14 +17,14 @@ basesql-sequelize/
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── sequelize/          # @basesql/sequelize
+│   ├── sequelize/          # @orm-bridge/sequelize
 │   │   ├── src/
 │   │   │   ├── sequelize-executor.ts
 │   │   │   └── index.ts
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   └── prisma/             # @basesql/prisma
+│   └── prisma/             # @orm-bridge/prisma
 │       ├── src/
 │       │   ├── prisma-executor.ts
 │       │   └── index.ts
@@ -95,11 +95,11 @@ cd packages/core
 npm link
 
 cd ../sequelize
-npm link @basesql/core
+npm link @orm-bridge/core
 npm link
 
 # In your test project
-npm link @basesql/core @basesql/sequelize
+npm link @orm-bridge/core @orm-bridge/sequelize
 ```
 
 #### Option 2: Using npm workspaces (recommended)
@@ -116,8 +116,8 @@ Then in your test package.json:
 ```json
 {
   "dependencies": {
-    "@basesql/core": "file:../../packages/core",
-    "@basesql/sequelize": "file:../../packages/sequelize"
+    "@orm-bridge/core": "file:../../packages/core",
+    "@orm-bridge/sequelize": "file:../../packages/sequelize"
   }
 }
 ```
@@ -155,18 +155,18 @@ npm run build:watch
 
 ## Package Dependencies
 
-### @basesql/core
+### @orm-bridge/core
 - **Dependencies**: `handlebars`
 - **DevDependencies**: `typescript`, `@types/node`, `@types/handlebars`
 - **Peer Dependencies**: None
 
-### @basesql/sequelize
-- **Dependencies**: `@basesql/core`
+### @orm-bridge/sequelize
+- **Dependencies**: `@orm-bridge/core`
 - **Peer Dependencies**: `sequelize@^6.0.0`
 - **DevDependencies**: `typescript`, `@types/node`, `sequelize`
 
-### @basesql/prisma
-- **Dependencies**: `@basesql/core`
+### @orm-bridge/prisma
+- **Dependencies**: `@orm-bridge/core`
 - **Peer Dependencies**: `@prisma/client@^5.0.0`
 - **DevDependencies**: `typescript`, `@types/node`, `@prisma/client`
 
@@ -180,7 +180,7 @@ The project uses TypeScript project references:
 
 ## Common Issues
 
-### Issue: Cannot find module '@basesql/core'
+### Issue: Cannot find module '@orm-bridge/core'
 
 **Solution**: Build the core package first
 ```bash
@@ -201,11 +201,11 @@ npm run build
 1. Rebuild the changed package
 2. If using npm link, re-link:
    ```bash
-   npm unlink @basesql/core
+   npm unlink @orm-bridge/core
    cd packages/core
    npm link
    cd your-project
-   npm link @basesql/core
+   npm link @orm-bridge/core
    ```
 
 ## Publishing to npm

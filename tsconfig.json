@@ -15,12 +15,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "@core/base/types": ["./packages/core/src/base/types"],
-      "@core/sql/types": ["./packages/core/src/types"]
-    }
+    "moduleResolution": "node10"
   },
   "include": ["packages/*/src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]

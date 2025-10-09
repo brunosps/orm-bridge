@@ -1,5 +1,5 @@
 ````instructions
-# BaseSQL - Copilot Instructions
+# ORM Bridge - Copilot Instructions
 
 ## Architecture Overview
 
@@ -8,9 +8,9 @@ This is an **ORM-agnostic** multi-database SQL query builder supporting both **S
 ### Core Components
 
 **Monorepo Structure:**
-- **`@basesql/core`** - ORM-agnostic SQL generation, pagination, filtering logic
-- **`@basesql/sequelize`** - Sequelize adapter implementing `IQueryExecutor`
-- **`@basesql/prisma`** - Prisma adapter implementing `IQueryExecutor`
+- **`@orm-bridge/core`** - ORM-agnostic SQL generation, pagination, filtering logic
+- **`@orm-bridge/sequelize`** - Sequelize adapter implementing `IQueryExecutor`
+- **`@orm-bridge/prisma`** - Prisma adapter implementing `IQueryExecutor`
 
 **Core Classes:**
 - **`BaseSql`** extends `RawSQL` and `AbstractSql` - Main entry point, orchestrates query building
@@ -106,14 +106,14 @@ Contains 26+ operators: `eq`, `not_eq`, `cont`, `i_cont`, `like`, `i_like`, `gt`
 
 ## Module Dependencies
 
-Uses `@basesql/*` scoped imports in the monorepo structure:
-- `@basesql/core` - Core types, factories, and SQL generation
-- `@basesql/sequelize` - Sequelize executor adapter
-- `@basesql/prisma` - Prisma executor adapter
+Uses `@orm-bridge/*` scoped imports in the monorepo structure:
+- `@orm-bridge/core` - Core types, factories, and SQL generation
+- `@orm-bridge/sequelize` - Sequelize executor adapter
+- `@orm-bridge/prisma` - Prisma executor adapter
 
 **Within packages:**
 - Core package is self-contained with no external dependencies (except Handlebars)
-- Adapters depend on `@basesql/core` and their respective ORMs as peer dependencies
+- Adapters depend on `@orm-bridge/core` and their respective ORMs as peer dependencies
 
 ## Implementation Guidelines
 

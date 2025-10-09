@@ -1,7 +1,7 @@
 {
-  "name": "@basesql/sequelize",
+  "name": "@orm-bridge/sequelize",
   "version": "1.0.0",
-  "description": "Sequelize adapter for BaseSQL",
+  "description": "Sequelize adapter for ORM Bridge",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -16,7 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@basesql/core": "file:../core"
+    "@orm-bridge/core": "file:../core"
   },
   "peerDependencies": {
     "sequelize": "^6.0.0"

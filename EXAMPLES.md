@@ -1,12 +1,12 @@
-# Usage Examples
+# Usage Examples - ORM Bridge
 
 ## Basic Query
 
 ### Sequelize
 
 ```typescript
-import { BaseSql, SearchOperator, SearchColumnType, OrderByPropsEnum } from '@basesql/core';
-import { SequelizeExecutor } from '@basesql/sequelize';
+import { BaseSql, SearchOperator, SearchColumnType, OrderByPropsEnum } from '@orm-bridge/core';
+import { SequelizeExecutor } from '@orm-bridge/sequelize';
 
 class UserQuery extends BaseSql {
   rawSQL() {
@@ -46,8 +46,8 @@ const result = await UserQuery.call(executor, {
 ### Prisma
 
 ```typescript
-import { BaseSql, SearchOperator, SearchColumnType, DatabaseType } from '@basesql/core';
-import { PrismaExecutor } from '@basesql/prisma';
+import { BaseSql, SearchOperator, SearchColumnType, DatabaseType } from '@orm-bridge/core';
+import { PrismaExecutor } from '@orm-bridge/prisma';
 
 class UserQuery extends BaseSql {
   rawSQL() {

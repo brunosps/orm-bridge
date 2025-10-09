@@ -1,6 +1,10 @@
-# 🚀 Quick Start Guide
+# Quickstart Guide
 
-## Para desenvolvedores que querem usar esta lib
+Get started with **ORM Bridge** in 5 minutes.
+
+---
+
+## 1️⃣ Installation
 
 ### Opção 1: Setup Rápido (Recomendado)
 
@@ -41,8 +45,8 @@ npm link /caminho/para/basesql-sequelize/packages/sequelize
 Depois, no seu código:
 
 ```typescript
-import { BaseSql, SearchOperator, SearchColumnType } from '@basesql/core';
-import { SequelizeExecutor } from '@basesql/sequelize';
+import { BaseSql, SearchOperator, SearchColumnType } from '@orm-bridge/core';
+import { SequelizeExecutor } from '@orm-bridge/sequelize';
 
 class MinhaQuery extends BaseSql {
   rawSQL() {
@@ -79,8 +83,8 @@ npm link /caminho/para/basesql-sequelize/packages/prisma
 Depois, no seu código:
 
 ```typescript
-import { BaseSql, SearchOperator, SearchColumnType, DatabaseType } from '@basesql/core';
-import { PrismaExecutor } from '@basesql/prisma';
+import { BaseSql, SearchOperator, SearchColumnType, DatabaseType } from '@orm-bridge/core';
+import { PrismaExecutor } from '@orm-bridge/prisma';
 
 class MinhaQuery extends BaseSql {
   rawSQL() {
@@ -130,9 +134,9 @@ npm run clean
 ```
 basesql-sequelize/
 ├── packages/
-│   ├── core/          → @basesql/core (lógica SQL)
-│   ├── sequelize/     → @basesql/sequelize (adapter)
-│   └── prisma/        → @basesql/prisma (adapter)
+│   ├── core/          → @orm-bridge/core (lógica SQL)
+│   ├── sequelize/     → @orm-bridge/sequelize (adapter)
+│   └── prisma/        → @orm-bridge/prisma (adapter)
 ├── EXAMPLES.md        → Exemplos de uso
 ├── MIGRATION.md       → Guia de migração
 ├── DEVELOPMENT.md     → Guia para desenvolvedores
@@ -170,8 +174,8 @@ Depende do seu banco:
 ### Preciso instalar Sequelize E Prisma?
 
 **Não!** Instale apenas o que você usa:
-- Se usa Sequelize: `@basesql/core` + `@basesql/sequelize`
-- Se usa Prisma: `@basesql/core` + `@basesql/prisma`
+- Se usa Sequelize: `@orm-bridge/core` + `@orm-bridge/sequelize`
+- Se usa Prisma: `@orm-bridge/core` + `@orm-bridge/prisma`
 
 ### Como faço queries customizadas?
 

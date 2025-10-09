@@ -1,8 +1,8 @@
 {
-  "name": "@basesql/root",
+  "name": "@orm-bridge/root",
   "version": "1.0.0",
   "private": true,
-  "description": "Multi-database SQL query builder abstraction for Sequelize and Prisma",
+  "description": "ORM-agnostic SQL query builder - Bridge between Sequelize and Prisma across MySQL, PostgreSQL, and MSSQL",
   "workspaces": [
     "packages/*"
   ],

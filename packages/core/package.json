@@ -1,7 +1,7 @@
 {
-  "name": "@basesql/core",
+  "name": "@orm-bridge/core",
   "version": "1.0.0",
-  "description": "ORM-agnostic SQL query builder core",
+  "description": "ORM-agnostic SQL query builder core - Multi-database support for Sequelize and Prisma",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

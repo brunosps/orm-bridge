@@ -1,8 +1,10 @@
-# BaseSQL
+# ORM Bridge
 
-Multi-database SQL query builder abstraction supporting Sequelize and Prisma. Provides pagination, search, and filtering capabilities across MySQL, PostgreSQL, and MSSQL.
+**ORM-agnostic SQL query builder** for Sequelize and Prisma with support for MySQL, PostgreSQL, and MSSQL.
 
-## Features
+---
+
+## 🚀 Features
 
 - 🎯 **ORM Agnostic**: Works with both Sequelize and Prisma
 - 🗄️ **Multi-Database**: MySQL, PostgreSQL, MSSQL support
@@ -15,9 +17,9 @@ Multi-database SQL query builder abstraction supporting Sequelize and Prisma. Pr
 
 This is a monorepo containing:
 
-- `@basesql/core` - Core SQL generation logic (ORM-agnostic)
-- `@basesql/sequelize` - Sequelize adapter
-- `@basesql/prisma` - Prisma adapter
+- `@orm-bridge/core` - Core SQL generation logic (ORM-agnostic)
+- `@orm-bridge/sequelize` - Sequelize adapter
+- `@orm-bridge/prisma` - Prisma adapter
 
 ## Installation
 
@@ -40,10 +42,10 @@ Once published to npm:
 
 ```bash
 # For Sequelize users
-npm install @basesql/core @basesql/sequelize
+npm install @orm-bridge/core @orm-bridge/sequelize
 
 # For Prisma users
-npm install @basesql/core @basesql/prisma
+npm install @orm-bridge/core @orm-bridge/prisma
 ```
 
 ### Local Development (Linking Packages)
@@ -56,17 +58,17 @@ cd packages/core
 npm link
 
 cd ../sequelize
-npm link @basesql/core
+npm link @orm-bridge/core
 npm link
 
 cd ../prisma
-npm link @basesql/core
+npm link @orm-bridge/core
 npm link
 
 # In your project directory
-npm link @basesql/core @basesql/sequelize
+npm link @orm-bridge/core @orm-bridge/sequelize
 # or
-npm link @basesql/core @basesql/prisma
+npm link @orm-bridge/core @orm-bridge/prisma
 ```
 
 ## Quick Start
@@ -74,9 +76,9 @@ npm link @basesql/core @basesql/prisma
 ### With Sequelize
 
 ```typescript
-import { BaseSql } from '@basesql/core';
-import { SequelizeExecutor } from '@basesql/sequelize';
-import { SearchOperator, SearchColumnType } from '@basesql/core';
+import { BaseSql } from '@orm-bridge/core';
+import { SequelizeExecutor } from '@orm-bridge/sequelize';
+import { SearchOperator, SearchColumnType } from '@orm-bridge/core';
 
 class UserQuery extends BaseSql {
   rawSQL() {
@@ -102,9 +104,9 @@ const result = await UserQuery.call(executor, {
 ### With Prisma
 
 ```typescript
-import { BaseSql } from '@basesql/core';
-import { PrismaExecutor } from '@basesql/prisma';
-import { SearchOperator, SearchColumnType } from '@basesql/core';
+import { BaseSql } from '@orm-bridge/core';
+import { PrismaExecutor } from '@orm-bridge/prisma';
+import { SearchOperator, SearchColumnType } from '@orm-bridge/core';
 
 class UserQuery extends BaseSql {
   rawSQL() {
