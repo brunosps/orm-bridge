@@ -1,5 +1,5 @@
 import { QueryTypes, Sequelize } from 'sequelize';
-import { DatabaseType, IQueryExecutor, ParameterStyle } from '@basesql/core';
+import { DatabaseType, IQueryExecutor, ParameterStyle } from '../../core/src/types';
 
 export class SequelizeExecutor implements IQueryExecutor {
   private databaseType: DatabaseType;

@@ -8,8 +8,9 @@
   ],
   "scripts": {
     "install:all": "npm install --workspaces",
-    "build": "npm run build --workspaces --if-present",
-    "build:core": "npm run build --workspace=packages/core",
+    "build": "npm run build:core && npm run build:adapters",
+    "build:core": "cd packages/core && npm run build",
+    "build:adapters": "cd packages/sequelize && npm run build && cd ../prisma && npm run build",
     "build:sequelize": "npm run build --workspace=packages/sequelize",
     "build:prisma": "npm run build --workspace=packages/prisma",
     "clean": "rm -rf packages/*/dist packages/*/node_modules",

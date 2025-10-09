@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { DatabaseType, IQueryExecutor, ParameterStyle, TemplateEngine } from '@basesql/core';
+import { DatabaseType, IQueryExecutor, ParameterStyle } from '../../core/src/types';
+import { TemplateEngine } from '../../core/src/template-engine';
 
 export class PrismaExecutor implements IQueryExecutor {
   private databaseType: DatabaseType;

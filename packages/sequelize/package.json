@@ -16,7 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@basesql/core": "^1.0.0"
+    "@basesql/core": "file:../core"
   },
   "peerDependencies": {
     "sequelize": "^6.0.0"
