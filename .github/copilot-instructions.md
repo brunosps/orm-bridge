@@ -1,26 +1,51 @@
-# BaseSQL Sequelize - Copilot Instructions
+````instructions
+# BaseSQL - Copilot Instructions
 
 ## Architecture Overview
 
-This is a multi-database SQL query builder for Sequelize that abstracts pagination, search, and filtering across MySQL, PostgreSQL, and MSSQL. The architecture uses the **Factory Pattern** and **Template Method Pattern** to handle database-specific SQL generation.
+This is an **ORM-agnostic** multi-database SQL query builder supporting both **Sequelize** and **Prisma**. It abstracts pagination, search, and filtering across MySQL, PostgreSQL, and MSSQL. The architecture uses the **Factory Pattern**, **Template Method Pattern**, and **Adapter Pattern** to handle database-specific SQL generation and ORM abstraction.
 
 ### Core Components
 
-- **`BaseSql`** extends `RawSQL` and `AbstractSql` - Main entry point that orchestrates query building
+**Monorepo Structure:**
+- **`@basesql/core`** - ORM-agnostic SQL generation, pagination, filtering logic
+- **`@basesql/sequelize`** - Sequelize adapter implementing `IQueryExecutor`
+- **`@basesql/prisma`** - Prisma adapter implementing `IQueryExecutor`
+
+**Core Classes:**
+- **`BaseSql`** extends `RawSQL` and `AbstractSql` - Main entry point, orchestrates query building
 - **`AbstractSql`** - Template defining required methods (`primaryKeyField()`, `searchColumns()`, `orderBy()`, etc.)
 - **`RawSQL`** - Base class requiring `rawSQL()` method implementation for custom queries
+- **`IQueryExecutor`** - Interface for ORM-specific query execution
+- **`TemplateEngine`** - Handles parameter style conversion (Handlebars-based)
 - **Factory Classes** - Handle database-specific implementations via runtime switching
 
 ## Key Patterns
 
-### 1. Database-Specific Factory Pattern
+### 1. Adapter Pattern for ORM Abstraction
+```typescript
+// IQueryExecutor interface abstracts ORM-specific query execution
+interface IQueryExecutor {
+  query<T>(sql: string, params: Record<string, any>): Promise<T[]>;
+  queryOne<T>(sql: string, params: Record<string, any>): Promise<T | null>;
+  getDatabaseType(): DatabaseType;
+}
+
+// Sequelize adapter
+const sequelizeExecutor = new SequelizeExecutor(sequelizeInstance);
+
+// Prisma adapter  
+const prismaExecutor = new PrismaExecutor(prismaClient, DatabaseType.POSTGRESQL);
+```
+
+### 2. Database-Specific Factory Pattern
 ```typescript
 // Factories automatically resolve database-specific implementations
 new PaginatorFactory(DatabaseType.MYSQL)  // → PaginatorMYSQL
 new SearchColumnFactory(name, type, op, value, DatabaseType.POSTGRESQL)  // → SearchColumnResolverPOSTGRESQL
 ```
 
-### 2. Template Method Implementation
+### 3. Template Method Implementation
 ```typescript
 class MyQuery extends BaseSql {
   rawSQL() { return 'SELECT * FROM users'; }
@@ -33,16 +58,30 @@ class MyQuery extends BaseSql {
 }
 ```
 
-### 3. Static Call Pattern
+### 4. Static Call Pattern with Executor
 ```typescript
-// Primary usage pattern - returns paginated results with metadata
-const result = await MyQuery.call<UserType>(sequelizeInstance, {
+// New pattern - pass IQueryExecutor instead of ORM instance
+const result = await MyQuery.call<UserType>(executor, {
   page: 1,
   perPage: 20,
   searchTerm: 'john',
   filter: { status: { value: 'active', op: SearchOperator.eq, type: SearchColumnType.string } }
 });
 // Returns: { meta: { page, perPage, totalRows, totalPages }, records: UserType[] }
+```
+
+### 5. Parameter Style Conversion (Handlebars-based)
+```typescript
+// TemplateEngine converts between parameter styles:
+// - NAMED: :param (Sequelize)
+// - POSITIONAL: $1, $2 (Prisma PostgreSQL)
+// - QUESTION: ? (Prisma MySQL)
+const { sql, params } = templateEngine.convertParameterStyle(
+  'SELECT * FROM users WHERE id = :id',
+  { id: 123 },
+  ParameterStyle.POSITIONAL
+);
+// Result: 'SELECT * FROM users WHERE id = $1', [123]
 ```
 
 ## Database-Specific Behaviors
@@ -67,9 +106,14 @@ Contains 26+ operators: `eq`, `not_eq`, `cont`, `i_cont`, `like`, `i_like`, `gt`
 
 ## Module Dependencies
 
-Uses `@core` aliased imports - this is part of a larger monorepo structure:
-- `@core/base/types` for `ListOfRecords`
-- `@core/sql/types` for internal types
+Uses `@basesql/*` scoped imports in the monorepo structure:
+- `@basesql/core` - Core types, factories, and SQL generation
+- `@basesql/sequelize` - Sequelize executor adapter
+- `@basesql/prisma` - Prisma executor adapter
+
+**Within packages:**
+- Core package is self-contained with no external dependencies (except Handlebars)
+- Adapters depend on `@basesql/core` and their respective ORMs as peer dependencies
 
 ## Implementation Guidelines
 
@@ -77,8 +121,9 @@ Uses `@core` aliased imports - this is part of a larger monorepo structure:
 2. **Implement all abstract methods** even if returning empty defaults
 3. **Use factories for database switching** - never directly instantiate database-specific classes
 4. **Primary keys can be composite** - return string arrays from `primaryKeyField()`
-5. **SQL injection prevention** - All values are parameterized via Sequelize replacements
+5. **SQL injection prevention** - All values are parameterized via template engine
 6. **Query counting strategy** - Wraps main query in `SELECT COUNT(*) FROM (originalQuery) TABCOUNT`
+7. **Parameter conversion** - TemplateEngine automatically converts `:param` to appropriate style for each ORM
 
 ## Error Handling Patterns
 

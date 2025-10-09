@@ -1,0 +1,8 @@
+import { IPaginator } from '../types';
+
+export class PaginatorMYSQL implements IPaginator {
+  getPaginationClause(page: number, perPage: number): string {
+    const initialValue = (page - 1) * perPage;
+    return `LIMIT ${perPage} OFFSET ${initialValue}`;
+  }
+}

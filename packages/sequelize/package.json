@@ -1,0 +1,29 @@
+{
+  "name": "@basesql/sequelize",
+  "version": "1.0.0",
+  "description": "Sequelize adapter for BaseSQL",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "sql",
+    "sequelize",
+    "query-builder"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@basesql/core": "^1.0.0"
+  },
+  "peerDependencies": {
+    "sequelize": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "sequelize": "^6.0.0",
+    "typescript": "^5.0.0"
+  }
+}
