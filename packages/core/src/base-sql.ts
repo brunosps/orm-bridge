@@ -20,7 +20,7 @@ import {
 } from './types';
 
 export class BaseSql extends RawSQL implements AbstractSql {
-  private _paginator: PaginatorFactory;
+  private _paginator!: PaginatorFactory;
   public get paginator() {
     return this._paginator;
   }
@@ -95,15 +95,15 @@ export class BaseSql extends RawSQL implements AbstractSql {
     } = this.getDefaultParams(params);
 
     const { whereClause, whereParams } = this.getWhereClause(
-      searchColumns,
-      searchTerm,
-      filter,
-      query.toUpperCase().includes('WHERE'),
+      searchColumns ?? {},
+      searchTerm ?? '',
+      filter ?? {},
+      (query ?? '').toUpperCase().includes('WHERE'),
     );
 
-    const groupByClause = this.getGroupByClause(groupBy);
-    const orderByClause = this.getOrderByClause(order);
-    const paginationClause = this.paginator.getPaginationClause(page, perPage);
+    const groupByClause = this.getGroupByClause(groupBy ?? []);
+    const orderByClause = this.getOrderByClause(order ?? {});
+    const paginationClause = this.paginator.getPaginationClause(page ?? 1, perPage ?? this.perPage());
 
     return {
       query: [
@@ -115,7 +115,7 @@ export class BaseSql extends RawSQL implements AbstractSql {
       ]
         .filter((x) => x !== '')
         .join(' '),
-      queryCount: this.getQueryCount([query, whereClause, groupByClause]),
+      queryCount: this.getQueryCount([query ?? '', whereClause, groupByClause]),
       params: { ...whereParams, ...sqlParams },
     };
   }
@@ -245,7 +245,7 @@ export class BaseSql extends RawSQL implements AbstractSql {
     ];
 
     return searchColumns.filter(
-      (col) => !excludeOp.includes(SearchOperator[col.resolver.operator]),
+      (col) => !excludeOp.includes(SearchOperator[col.resolver.operator as keyof typeof SearchOperator]),
     );
   }
 

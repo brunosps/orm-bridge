@@ -29,12 +29,12 @@ export class PrismaExecutor implements IQueryExecutor {
       );
 
     // $queryRawUnsafe aceita SQL string e parâmetros como argumentos separados
-    const result = await this.prisma.$queryRawUnsafe<T[]>(
+    const result = await this.prisma.$queryRawUnsafe(
       convertedSql,
       ...convertedParams
     );
 
-    return result;
+    return result as T[];
   }
 
   async queryOne<T>(sql: string, params: Record<string, any>): Promise<T | null> {

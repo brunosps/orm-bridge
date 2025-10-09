@@ -28,7 +28,7 @@ export class SequelizeExecutor implements IQueryExecutor {
   }
 
   async query<T>(sql: string, params: Record<string, any>): Promise<T[]> {
-    return await this.sequelize.query<T>(sql, {
+    const results = await this.sequelize.query(sql, {
       type: QueryTypes.SELECT,
       replacements: params,
       raw: true,
@@ -36,6 +36,7 @@ export class SequelizeExecutor implements IQueryExecutor {
         max: 2,
       },
     });
+    return results as T[];
   }
 
   async queryOne<T>(sql: string, params: Record<string, any>): Promise<T | null> {

@@ -25,7 +25,7 @@ export class SearchColumnResolverMYSQL extends SearchColumnBase {
         if (typeof this.searchedValue === 'string') {
           this.searchedValue = this.searchedValue.split(',');
         }
-        const processedValues = this.searchedValue.map((value) => value);
+        const processedValues = this.searchedValue.map((value: any) => value);
         return processedValues;
       default:
         switch (this.type) {

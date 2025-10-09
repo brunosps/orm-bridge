@@ -31,7 +31,7 @@ interface ISearchColumnResolver {
 }
 
 export abstract class SearchColumnBase implements ISearchColumnResolver {
-  public _type: SearchColumnType;
+  public _type!: SearchColumnType;
   public get type() {
     return this._type;
   }
@@ -40,7 +40,7 @@ export abstract class SearchColumnBase implements ISearchColumnResolver {
     this._type = value;
   }
 
-  public _columnName: string;
+  public _columnName!: string;
   public get columnName() {
     return this._columnName;
   }
@@ -49,7 +49,7 @@ export abstract class SearchColumnBase implements ISearchColumnResolver {
     this._columnName = value;
   }
 
-  public _operator: string;
+  public _operator!: string;
   public get operator() {
     return this._operator;
   }
@@ -58,7 +58,7 @@ export abstract class SearchColumnBase implements ISearchColumnResolver {
     this._operator = value;
   }
 
-  public _searchedValue: string;
+  public _searchedValue!: any;
   public get searchedValue() {
     return this._searchedValue;
   }
@@ -110,7 +110,7 @@ export abstract class SearchColumnBase implements ISearchColumnResolver {
   abstract getFormatValue(): any;
 
   format(): string {
-    const potentialMethod = this[this.operator].bind(this);
+    const potentialMethod = (this as any)[this.operator]?.bind(this);
     if (typeof potentialMethod !== 'function') {
       return '';
     }
@@ -119,8 +119,8 @@ export abstract class SearchColumnBase implements ISearchColumnResolver {
 
   formatName(): string {
     return `${this.columnName
-      .replaceAll('.', '_')
-      .replaceAll('(', '_')
-      .replaceAll(')', '_')}_${this.operator}`;
+      .replace(/\./g, '_')
+      .replace(/\(/g, '_')
+      .replace(/\)/g, '_')}_${this.operator}`;
   }
 }
