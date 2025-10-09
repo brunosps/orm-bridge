@@ -1,0 +1,29 @@
+{
+  "name": "@basesql/root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-database SQL query builder abstraction for Sequelize and Prisma",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "clean": "rm -rf packages/*/dist packages/*/node_modules"
+  },
+  "keywords": [
+    "sql",
+    "query-builder",
+    "sequelize",
+    "prisma",
+    "pagination",
+    "filtering",
+    "search"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
