@@ -21,12 +21,52 @@ This is a monorepo containing:
 
 ## Installation
 
+### Development Setup (Monorepo)
+
+```bash
+# Clone or navigate to the repository
+cd basesql-sequelize
+
+# Install dependencies for all packages
+npm install
+
+# Build all packages
+npm run build --workspaces
+```
+
+### Using in Your Projects
+
+Once published to npm:
+
 ```bash
 # For Sequelize users
 npm install @basesql/core @basesql/sequelize
 
 # For Prisma users
 npm install @basesql/core @basesql/prisma
+```
+
+### Local Development (Linking Packages)
+
+If you want to test locally before publishing:
+
+```bash
+# In the basesql-sequelize directory
+cd packages/core
+npm link
+
+cd ../sequelize
+npm link @basesql/core
+npm link
+
+cd ../prisma
+npm link @basesql/core
+npm link
+
+# In your project directory
+npm link @basesql/core @basesql/sequelize
+# or
+npm link @basesql/core @basesql/prisma
 ```
 
 ## Quick Start

@@ -7,9 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
-    "test": "npm run test --workspaces",
-    "clean": "rm -rf packages/*/dist packages/*/node_modules"
+    "install:all": "npm install --workspaces",
+    "build": "npm run build --workspaces --if-present",
+    "build:core": "npm run build --workspace=packages/core",
+    "build:sequelize": "npm run build --workspace=packages/sequelize",
+    "build:prisma": "npm run build --workspace=packages/prisma",
+    "clean": "rm -rf packages/*/dist packages/*/node_modules",
+    "clean:dist": "rm -rf packages/*/dist"
   },
   "keywords": [
     "sql",
