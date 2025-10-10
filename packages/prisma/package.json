@@ -1,6 +1,6 @@
 {
   "name": "@orm-bridge/prisma",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Prisma adapter for ORM Bridge",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
