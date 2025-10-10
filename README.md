@@ -26,8 +26,9 @@ This is a monorepo containing:
 ### Development Setup (Monorepo)
 
 ```bash
-# Clone or navigate to the repository
-cd basesql-sequelize
+# Clone the repository
+git clone https://github.com/brunosps/orm-bridge.git
+cd orm-bridge
 
 # Install dependencies for all packages
 npm install
