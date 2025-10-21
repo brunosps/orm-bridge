@@ -62,6 +62,7 @@ export enum SearchColumnType {
   float,
   string,
   number,
+  uuid,
 }
 
 export type SearchColumnsProps = {

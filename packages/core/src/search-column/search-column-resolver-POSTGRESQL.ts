@@ -59,6 +59,9 @@ export class SearchColumnResolverPOSTGRESQL extends SearchColumnBase {
   }
 
   eq(): string {
+    if (this.type === SearchColumnType.uuid) {
+      return `${this.columnName} = :${this.formatName()}::uuid`;
+    }
     return `${this.columnName} = :${this.formatName()}`;
   }
 
@@ -83,6 +86,9 @@ export class SearchColumnResolverPOSTGRESQL extends SearchColumnBase {
   }
 
   in(): string {
+    if (this.type === SearchColumnType.uuid) {
+      return `${this.columnName} IN (:${this.formatName()}::uuid)`;
+    }
     return `${this.columnName} IN (:${this.formatName()})`;
   }
 
@@ -115,6 +121,9 @@ export class SearchColumnResolverPOSTGRESQL extends SearchColumnBase {
   }
 
   not_eq(): string {
+    if (this.type === SearchColumnType.uuid) {
+      return `${this.columnName} <> :${this.formatName()}::uuid`;
+    }
     return `${this.columnName} <> :${this.formatName()}`;
   }
 
